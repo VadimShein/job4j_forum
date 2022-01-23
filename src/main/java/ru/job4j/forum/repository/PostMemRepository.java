@@ -15,8 +15,6 @@ public class PostMemRepository {
 
     public PostMemRepository() {
         Post post1 = new Post("Продаю машину ладу 01", "Хорошая машина");
-        post1.addMessage(new Message(1, "user1", "message1"));
-        post1.addMessage(new Message(2, "user2", "message2"));
         save(post1);
     }
 

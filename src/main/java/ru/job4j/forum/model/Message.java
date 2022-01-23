@@ -1,18 +1,20 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@Table(name = "messages")
 public class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String author;
     private String text;
     private Date created = new Date(System.currentTimeMillis());
 
-    public Message(int id, String author, String text) {
-        this.id = id;
-        this.author = author;
-        this.text = text;
+    public Message() {
     }
 
     public Message(String author, String text) {

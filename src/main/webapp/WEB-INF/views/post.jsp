@@ -64,6 +64,7 @@
                         <th style="width: 40px; text-align: center">№</th>
                         <th style="text-align: center">Комментарий</th>
                         <th style="width: 20%; text-align: center">Автор</th>
+                        <th style="text-align: center">Дата</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,6 +73,7 @@
                             <td><c:out value="${message.id}"/></td>
                             <td><c:out value="${message.text}"/></td>
                             <td><c:out value="${message.author}"/></td>
+                            <td><c:out value="${message.created}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>

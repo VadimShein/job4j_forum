@@ -39,7 +39,7 @@ public class PostControl {
 
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("postId") String postId) {
-        Post post = postService.findByPostId(Integer.parseInt(postId));
+        Post post = postService.findPostById(Integer.parseInt(postId));
         model.addAttribute(post);
         model.addAttribute("userName", SecurityContextHolder.getContext().getAuthentication().getName());
         return "edit";
@@ -47,7 +47,7 @@ public class PostControl {
 
     @GetMapping("/post")
     public String post(Model model, @RequestParam("postId") String postId) {
-        Post post = postService.findByPostId(Integer.parseInt(postId));
+        Post post = postService.findPostById(Integer.parseInt(postId));
         model.addAttribute(post);
         model.addAttribute("userName", SecurityContextHolder.getContext().getAuthentication().getName());
         return "post";

@@ -1,17 +1,22 @@
 package ru.job4j.forum.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
+import javax.persistence.*;
+import java.util.*;
 
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
     private Date created = new Date(System.currentTimeMillis());
-    private List<Message> messages = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Message> messages;
+
+    public Post() {
+    }
 
     public Post(String name, String description) {
         this.name = name;
@@ -62,10 +67,6 @@ public class Post {
         messages.add(message);
     }
 
-    public AtomicInteger getCountMessages() {
-        return new AtomicInteger(messages.size());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -75,14 +76,11 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return id == post.id
-                && Objects.equals(name, post.name)
-                && Objects.equals(description, post.description)
-                && Objects.equals(created, post.created);
+        return id == post.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, created);
+        return Objects.hash(id);
     }
 }
