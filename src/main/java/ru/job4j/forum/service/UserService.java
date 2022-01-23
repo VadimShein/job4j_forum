@@ -3,15 +3,15 @@ package ru.job4j.forum.service;
 import org.springframework.stereotype.Service;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.AuthorityMemRepository;
-import ru.job4j.forum.repository.UserMemRepository;
+import ru.job4j.forum.repository.AuthorityRepository;
+import ru.job4j.forum.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserMemRepository userRepository;
-    private final AuthorityMemRepository authorityRepository;
+    private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
 
-    public UserService(UserMemRepository userRepository, AuthorityMemRepository authorityRepository) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
     }
@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public User findByUserName(String name) {
-        return userRepository.findByUserName(name);
+        return userRepository.findByUsername(name);
     }
 
     public void saveUser(User user) {

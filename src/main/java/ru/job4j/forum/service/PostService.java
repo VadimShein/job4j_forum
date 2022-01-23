@@ -27,6 +27,7 @@ public class PostService {
             pst.addMessage(message);
             postRepository.save(pst);
         } else {
+            post.setMessages(findPostById(post.getId()).getMessages());
             postRepository.save(post);
         }
     }
