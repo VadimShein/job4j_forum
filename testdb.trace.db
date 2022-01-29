@@ -1,0 +1,40 @@
+2022-01-29 17:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "DATABASECHANGELOGLOCK" не найдена
+Table "DATABASECHANGELOGLOCK" not found; SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42102-200]
+2022-01-29 17:00:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POSTS" уже существует
+Table "POSTS" already exists; SQL statement:
+create table posts (
+    id serial primary key,
+    name varchar(2000),
+    description text,
+    created timestamp without time zone not null default now()
+); [42101-200]
+2022-01-29 17:01:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POSTS" уже существует
+Table "POSTS" already exists; SQL statement:
+create table posts (
+    id serial primary key,
+    name varchar(2000),
+    description text,
+    created timestamp without time zone not null default now()
+); [42101-200]
+2022-01-29 17:02:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POSTS" уже существует
+Table "POSTS" already exists; SQL statement:
+create table posts (
+    id serial primary key,
+    name varchar(2000),
+    description text,
+    created timestamp without time zone not null default now()
+); [42101-200]
+2022-01-29 17:03:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POSTS" уже существует
+Table "POSTS" already exists; SQL statement:
+create table posts (
+    id serial primary key,
+    name varchar(2000),
+    description text,
+    created timestamp without time zone not null default now()
+); [42101-200]
