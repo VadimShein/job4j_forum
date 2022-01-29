@@ -3,6 +3,7 @@ package ru.job4j.forum;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.job4j.forum.model.Message;
 import ru.job4j.forum.model.Post;
@@ -46,19 +47,20 @@ public class PostControlTest {
     @Test
     @WithMockUser
     public void shouldReturnEditPage() throws Exception {
-        Post expected = new Post(1,"Discussion 1", "Description 1");
+        when(posts.findPostById(1)).thenReturn(new Post(1, "Discussion 1", "Description 1"));
+        Post expected = new Post(1, "Discussion 1", "Description 1");
         this.mockMvc.perform(get("/edit?postId=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("edit"))
                 .andExpect(MockMvcResultMatchers.model().attribute("post", expected));
-
     }
 
     @Test
     @WithMockUser
     public void shouldReturnPostPage() throws Exception {
-        Post expected = new Post(1,"Discussion 1", "Description 1");
+        when(posts.findPostById(1)).thenReturn(new Post(1, "Discussion 1", "Description 1"));
+        Post expected = new Post(1, "Discussion 1", "Description 1");
         this.mockMvc.perform(get("/post?postId=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
