@@ -40,32 +40,60 @@
         }
     </script>
 
-    <title>Create</title>
+    <title>Discussion</title>
 </head>
 
 <body>
 <div class="container">
     <div class="row" id="login">
         <a class="nav-link" href="<c:url value="/login?logout=true"/>"> <c:out value="${userName}"/> | Выйти</a>
+        <a class="nav-link" href="<c:url value="/index"/>"> На главную</a>
     </div>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <h3>Редактирование</h3>
+                <h3>№:<c:out value="${topic.id}"/> <c:out value="${topic.name}"/></h3>
             </div>
             <div class="card-body">
-                <form action="<c:url value='/save'/>" method="post">
+                <div>
+                    <label>Описание:</label>
+                    <c:out value="${topic.description}"/>
+                </div>
+                <table class="table table-bordered" style="table-layout: fixed">
+                    <thead>
+                    <tr>
+                        <th style="width: 40px; text-align: center">№</th>
+                        <th style="text-align: center">Комментарий</th>
+                        <th style="width: 20%; text-align: center">Автор</th>
+                        <th style="text-align: center">Дата</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${messages}" var="message">
+                        <tr>
+                            <td><c:out value="${message.id}"/></td>
+                            <td><c:out value="${message.text}"/></td>
+                            <td><c:out value="${message.author}"/></td>
+                            <td><c:out value="${message.created}"/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <form action="<c:url value="/saveMessage"/>" method="post">
                     <div class="form-group">
-                        <div id="name">
-                            <label>Тема:</label>
-                            <input type="text" class="form-control" name="name" title="Заполните поле: Имя">
+                        <div id="id">
+                            <input type="hidden" name="id" value="${topic.id}">
                         </div>
-                        <div id="description">
-                            <label>Описание:</label>
-                            <textarea maxlength="255" rows="3" class="form-control" name="description" title="Заполните поле: Описание" style="height: 113px"></textarea>
+                        <div id="author">
+                            <input type="hidden" name="author" value="${userName}">
+                        </div>
+                        <div id="text">
+                            <label>Комментарий:</label>
+                            <textarea maxlength="255" rows="2" class="form-control" name="text"
+                                      title="Заполните поле: Сообщение" style="height: 75px"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Добавить комментарий</button>
                 </form>
             </div>
         </div>

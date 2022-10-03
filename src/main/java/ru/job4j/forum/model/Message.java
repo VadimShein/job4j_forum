@@ -1,7 +1,7 @@
 package ru.job4j.forum.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,9 @@ public class Message {
     private int id;
     private String author;
     private String text;
-    private Date created = new Date(System.currentTimeMillis());
+    private LocalDateTime created = LocalDateTime.now();
+    @ManyToOne
+    private Topic topic;
 
     public Message() {
     }
@@ -20,6 +22,12 @@ public class Message {
     public Message(String author, String text) {
         this.author = author;
         this.text = text;
+    }
+
+    public Message(String author, String text, LocalDateTime created) {
+        this.author = author;
+        this.text = text;
+        this.created = created;
     }
 
     public int getId() {
@@ -46,12 +54,20 @@ public class Message {
         this.text = text;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     @Override
@@ -69,5 +85,15 @@ public class Message {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Message{"
+                + "id=" + id
+                + ", author='" + author + '\''
+                + ", text='" + text + '\''
+                + ", created=" + created
+                + ", topic=" + topic + '}';
     }
 }

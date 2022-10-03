@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <!-- Required meta tags -->
@@ -41,7 +40,7 @@
         }
     </script>
 
-    <title>Edit</title>
+    <title>Create</title>
 </head>
 
 <body>
@@ -52,30 +51,18 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <c:if test="${not empty post.id}">
-                    <h3>Редактирование</h3>
-                </c:if>
-                <c:if test="${empty post.id}">
-                    <h3>Добавление</h3>
-                </c:if>
+                <h3>Создание темы</h3>
             </div>
             <div class="card-body">
-                <form action="<c:url value='/save'/>" method="post">
+                <form action="<c:url value='/saveTopic'/>" method="post">
                     <div class="form-group">
-                        <div id="id">
-                            <c:if test="${not empty post.id}">
-                                <label>№: <c:out value="${post.id}"/></label><br>
-                                <input type="hidden" name="id" value="${post.id}">
-                            </c:if>
-                        </div>
                         <div id="name">
                             <label>Тема:</label>
-                            <input type="text" class="form-control" name="name" value="${post.name}" title="Заполните поле: Имя">
+                            <input type="text" class="form-control" name="name" title="Заполните поле: Тема">
                         </div>
                         <div id="description">
                             <label>Описание:</label>
-                            <textarea maxlength="255" rows="3" class="form-control" name="description"
-                                      title="Заполните поле: Описание" style="height: 113px">${post.description}</textarea>
+                            <textarea maxlength="255" rows="3" class="form-control" name="description" title="Заполните поле: Описание" style="height: 113px"></textarea>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>

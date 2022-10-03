@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <!-- Required meta tags -->
@@ -40,7 +41,7 @@
         }
     </script>
 
-    <title>Discussion</title>
+    <title>Edit</title>
 </head>
 
 <body>
@@ -51,48 +52,33 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                <h3>№:<c:out value="${post.id}"/> <c:out value="${post.name}"/></h3>
+                <c:if test="${not empty topic.id}">
+                    <h3>Редактирование</h3>
+                </c:if>
+                <c:if test="${empty topic.id}">
+                    <h3>Добавление</h3>
+                </c:if>
             </div>
             <div class="card-body">
-                <div>
-                    <label>Описание:</label>
-                    <c:out value="${post.description}"/>
-                </div>
-                <table class="table table-bordered" style="table-layout: fixed">
-                    <thead>
-                    <tr>
-                        <th style="width: 40px; text-align: center">№</th>
-                        <th style="text-align: center">Комментарий</th>
-                        <th style="width: 20%; text-align: center">Автор</th>
-                        <th style="text-align: center">Дата</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${post.messages}" var="message">
-                        <tr>
-                            <td><c:out value="${message.id}"/></td>
-                            <td><c:out value="${message.text}"/></td>
-                            <td><c:out value="${message.author}"/></td>
-                            <td><c:out value="${message.created}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <form action="<c:url value="/save"/>" method="post">
+                <form action="<c:url value='/saveTopic'/>" method="post">
                     <div class="form-group">
                         <div id="id">
-                            <input type="hidden" name="id" value="${post.id}">
+                            <c:if test="${not empty topic.id}">
+                                <label>№: <c:out value="${topic.id}"/></label><br>
+                                <input type="hidden" name="id" value="${topic.id}">
+                            </c:if>
                         </div>
-                        <div id="author">
-                            <input type="hidden" name="author" value="${userName}">
+                        <div id="name">
+                            <label>Тема:</label>
+                            <input type="text" class="form-control" name="name" value="${topic.name}" title="Заполните поле: Имя">
                         </div>
-                        <div id="text">
-                            <label>Комментарий:</label>
-                            <textarea maxlength="255" rows="2" class="form-control" name="text"
-                                      title="Заполните поле: Сообщение" style="height: 75px"></textarea>
+                        <div id="description">
+                            <label>Описание:</label>
+                            <textarea maxlength="255" rows="3" class="form-control" name="description"
+                                      title="Заполните поле: Описание" style="height: 113px">${topic.description}</textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="return validate()">Добавить комментарий</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>
             </div>
         </div>

@@ -26,7 +26,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Forums</title>
+    <title>Forum</title>
 </head>
 <body>
 <div class="container">
@@ -39,7 +39,7 @@
                 <h3>Главная страница</h3>
             </div>
             <div class="card-body">
-                <form action="<c:url value="/create"/>">
+                <form action="<c:url value="/createTopic"/>">
                     <div class="form-group row">
                         <div class="col-sm-5">
                             <button type="submit" class="btn btn-primary">Добавить тему</button>
@@ -51,20 +51,20 @@
                     <tr>
                         <th style="width: 40px; text-align: center">№</th>
                         <th style="text-align: center" scope="col">Тема</th>
-                        <th style="text-align: center">Дата</th>
+                        <th style="text-align: center; width: 25%; ">Дата</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${posts}" var="post">
+                    <c:forEach items="${topics}" var="topic">
                         <tr>
                             <td>
-                                <c:out value="${post.id}"/>
-                                <a href="<c:url value='/edit?postId=${post.id}'/>"><i class="fa fa-edit"></i></a>
+                                <c:out value="${topic.id}"/>
+                                <a href="<c:url value='/editTopic?topicId=${topic.id}'/>"><i class="fa fa-edit"></i></a>
                             </td>
                             <td>
-                                <a href="<c:url value='/post?postId=${post.id}'/>"><c:out value="${post.name}"/></a>
+                                <a href="<c:url value='/topic?topicId=${topic.id}'/>"><c:out value="${topic.name}"/></a>
                             </td>
-                            <td><c:out value="${post.created}"/></td>
+                            <td style="text-align: center"><c:out value="${topic.created}"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
