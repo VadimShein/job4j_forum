@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,10 +26,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.job4j.forum.model.Topic;
 import ru.job4j.forum.service.TopicService;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
 public class TopicControlTest {
     @Autowired
     private MockMvc mockMvc;
@@ -48,10 +51,9 @@ public class TopicControlTest {
     @Test
     @WithMockUser
     public void shouldReturnEditTopicPage() throws Exception {
-        when(topics.findTopicById(1)).thenReturn(new Topic(1, "Discussion 1", "Description 1",
-                LocalDateTime.of(2022, 10, 2, 22, 24, 48)));
-        Topic expected = new Topic(1, "Discussion 1", "Description 1",
-                LocalDateTime.of(2022, 10, 2, 22, 24, 48));
+        Calendar calendar1 = new GregorianCalendar(2022, Calendar.OCTOBER, 2, 22, 24, 48);
+        when(topics.findTopicById(1)).thenReturn(new Topic(1,"Тема 1", "Описание темы", calendar1));
+        Topic expected = new Topic(1,"Тема 1", "Описание темы", calendar1);
         this.mockMvc.perform(get("/editTopic?topicId=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -62,10 +64,9 @@ public class TopicControlTest {
     @Test
     @WithMockUser
     public void shouldReturnTopicPage() throws Exception {
-        when(topics.findTopicById(1)).thenReturn(new Topic(1, "Discussion 1", "Description 1",
-                LocalDateTime.of(2022, 10, 2, 22, 24, 48)));
-        Topic expected = new Topic(1, "Discussion 1", "Description 1",
-                LocalDateTime.of(2022, 10, 2, 22, 24, 48));
+        Calendar calendar1 = new GregorianCalendar(2022, Calendar.OCTOBER, 2, 22, 24, 48);
+        when(topics.findTopicById(1)).thenReturn(new Topic(1,"Тема 1", "Описание темы", calendar1));
+        Topic expected = new Topic(1,"Тема 1", "Описание темы", calendar1);
         this.mockMvc.perform(get("/topic?topicId=1"))
                 .andDo(print())
                 .andExpect(status().isOk())

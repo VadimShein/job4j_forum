@@ -1,7 +1,8 @@
 package ru.job4j.forum.model;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,8 @@ public class Topic {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar created = new GregorianCalendar();
 
     public Topic() {
     }
@@ -22,7 +24,7 @@ public class Topic {
         this.description = description;
     }
 
-    public Topic(int id, String name, String description, LocalDateTime created) {
+    public Topic(int id, String name, String description, Calendar created) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,11 +55,11 @@ public class Topic {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public Calendar getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(Calendar created) {
         this.created = created;
     }
 
